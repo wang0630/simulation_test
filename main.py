@@ -28,15 +28,14 @@ def parseCsvToTxt(file_name, column_to_be_chosen):
 
 if __name__ == '__main__':
     sorting_list = [
-        # s.BubbleSort(),
-        # s.SelectionSort(),
-        # s.InsertionSort(),
-        # s.QuickSort(),
+        s.BubbleSort(),
+        s.SelectionSort(),
+        s.InsertionSort(),
+        s.QuickSort(),
         s.MergeSort(),
     ]
     fmt_list = ["o-g", "o-b", "o-m", "o-y", "o-r"]
-    # file_list = ["u", "n", "v", "s"]
-    file_list = ["u"]
+    file_list = ["u", "n", "v", "s"]
     plt = pt.Plot()
     # Time to data size
     figure_type = "t_to_ds"
