@@ -51,8 +51,8 @@ class Sorting(ABC):
                     mems.append(memory_monitor_thread.result())
 
             # Compute the average memory usage of all 5 iterations of a given data size percentage
-            memory_usage_result.append(round(sum(mems) / self.iteration_count, 4))
-            print(f"{self.__class__.__name__} {percentage}%, memory usage: {memory_usage_result}")
+            memory_usage_result.append(round((sum(mems) / self.iteration_count) / 10**6, 3))
+            print(f"{self.__class__.__name__} {percentage}%, memory usage: {memory_usage_result} MB")
         return memory_usage_result
 
     def time_to_size_sort(self, file_type_key):
