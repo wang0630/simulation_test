@@ -17,8 +17,8 @@ class Plot:
             "m_to_ds": "Memory",
         }
         self.ylabel_unit = {
-            "t_to_ds": ticker.FormatStrFormatter('%.3fs'),
-            "m_to_ds": ticker.FormatStrFormatter('%.3fMB'),
+            "t_to_ds": ticker.FormatStrFormatter('%.1fs'),
+            "m_to_ds": ticker.FormatStrFormatter('%.1fMB'),
         }
         self.xlabel_unit = {
             "t_to_ds": ticker.FormatStrFormatter('%d%%'),
@@ -55,3 +55,6 @@ class Plot:
 
     def get_figure(self, figure_type):
         return self.figures[figure_type]["figure"]
+
+    def save_figure(self, figure_type, fname, **kwargs):
+        self.figures[figure_type]["figure"].savefig(fname, **kwargs)

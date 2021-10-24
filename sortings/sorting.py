@@ -1,6 +1,6 @@
 import math
 import datetime
-import resource
+import platform
 from abc import ABC, abstractmethod
 from concurrent.futures import ThreadPoolExecutor
 from os import path
@@ -15,6 +15,7 @@ class Sorting(ABC):
         self.dataset_result = []
         self.data_size_limit = 700
         self.iteration_count = 5
+        self.os_name = platform.system()
 
         self.file_types_map = {
             "u": (path.abspath(path.join(path.dirname(__file__), "..", "uniform_distribution.txt"))),
@@ -51,8 +52,11 @@ class Sorting(ABC):
                     mems.append(memory_monitor_thread.result())
 
             # Compute the average memory usage of all 5 iterations of a given data size percentage
-            memory_usage_result.append(round((sum(mems) / self.iteration_count) / 10**6, 3))
-            print(f"{self.__class__.__name__} {percentage}%, memory usage: {memory_usage_result} MB")
+            unit = 10**6
+            if self.os_name == 'Linux':
+                unit = 10**3
+            memory_usage_result.append(round((sum(mems) / self.iteration_count) / unit, 3))
+            print(f"{self.__class__.__name__} in {file_type_key} with {percentage}%, memory usage: {memory_usage_result} MB")
         return memory_usage_result
 
     def time_to_size_sort(self, file_type_key):
@@ -69,7 +73,7 @@ class Sorting(ABC):
                 times.append(time_delta.total_seconds())
             # Compute the average time of all 5 iterations of a given data size percentage
             time_result.append(round(sum(times) / self.iteration_count, 4))
-            print(f"{self.__class__.__name__} {percentage}%, time result: {time_result}")
+            print(f"{self.__class__.__name__} in {file_type_key} with {percentage}%, time result: {time_result}")
         return time_result
 
     def sort(self, percentage, file_type_key):
