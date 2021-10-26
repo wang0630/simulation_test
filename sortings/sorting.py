@@ -13,16 +13,17 @@ class Sorting(ABC):
         self.data = []
         self.current_data_to_be_sorted = []
         self.dataset_result = []
-        self.data_size_limit = 700
+        self.data_size_limit = 500
         self.iteration_count = 5
         self.os_name = platform.system()
 
         self.file_types_map = {
-            "u": (path.abspath(path.join(path.dirname(__file__), "..", "uniform_distribution.txt"))),
-            "n": (path.abspath(path.join(path.dirname(__file__), "..", "normal_distribution.txt"))),
-            "v": (path.abspath(path.join(path.dirname(__file__), "..", "vehicles.txt"))),
-            "s": (path.abspath(path.join(path.dirname(__file__), "..", "sales.txt"))),
+            "u": (path.abspath(path.join(path.dirname(__file__), "..", "data", "uniform_distribution.txt"))),
+            "n": (path.abspath(path.join(path.dirname(__file__), "..", "data", "normal_distribution.txt"))),
+            "v": (path.abspath(path.join(path.dirname(__file__), "..", "data", "vehicles.txt"))),
+            "s": (path.abspath(path.join(path.dirname(__file__), "..", "data", "sales.txt"))),
         }
+        # Calculate prior to the code running
         self.file_line_counts_map = {
             "u": 20000,
             "n": 20000,
@@ -31,6 +32,7 @@ class Sorting(ABC):
         }
 
     def read_data_to_ram(self, file_type_key):
+        self.data = []
         # Read data to RAM
         with open(self.file_types_map[file_type_key]) as f:
             for number in f:
@@ -93,7 +95,7 @@ class Sorting(ABC):
         if self.current_data_to_be_sorted:
             self.internal_sort_wrapper()
         # k-way merge self.dataset_result
-        self.k_way_merge()
+        # self.k_way_merge()
         # return 0
 
     def internal_sort_wrapper(self):
@@ -105,6 +107,7 @@ class Sorting(ABC):
         if k:
             self.current_data_to_be_sorted = k
         self.dataset_result.append(self.current_data_to_be_sorted[:])
+        # Reset self.current_data_to_be_sorted to begin a new round
         self.current_data_to_be_sorted = []
 
     def k_way_merge(self):

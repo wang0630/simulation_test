@@ -1,4 +1,4 @@
-from .sorting import Sorting
+from .inversion_count_merge_sort import InversionCountMergeSort
 
 
 def partition(target):
@@ -18,7 +18,7 @@ def partition(target):
     return smaller, equal_to_pivot, larger
 
 
-class QuickSort(Sorting):
+class QuickSort(InversionCountMergeSort):
     def __init__(self):
         super().__init__()
 

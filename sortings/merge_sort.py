@@ -1,7 +1,7 @@
-from .sorting import Sorting
+from .inversion_count_merge_sort import InversionCountMergeSort
 
 
-class MergeSort(Sorting):
+class MergeSort(InversionCountMergeSort):
     def __init__(self):
         super().__init__()
 
@@ -34,11 +34,11 @@ class MergeSort(Sorting):
                 i += 1
 
         if i <= end1:
-            for k in range(i, end1+1):
+            for k in range(i, end1 + 1):
                 result.append(self.current_data_to_be_sorted[k])
         if j <= end2:
-            for k in range(j, end2+1):
+            for k in range(j, end2 + 1):
                 result.append(self.current_data_to_be_sorted[k])
 
-        for k in range(start1, end2+1):
-            self.current_data_to_be_sorted[k] = result[k-start1]
+        for k in range(start1, end2 + 1):
+            self.current_data_to_be_sorted[k] = result[k - start1]

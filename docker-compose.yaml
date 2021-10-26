@@ -4,5 +4,6 @@ services:
   simulation_test:
     build: .
     container_name: simulation_test
+    image: j2081499/sort_simulation
     volumes:
       - ./pictures:/simulation_test/pictures

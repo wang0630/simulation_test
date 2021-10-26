@@ -1,7 +1,7 @@
-from .sorting import Sorting
+from .inversion_count_merge_sort import InversionCountMergeSort
 
 
-class SelectionSort(Sorting):
+class SelectionSort(InversionCountMergeSort):
     def __init__(self):
         super().__init__()
 
