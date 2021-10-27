@@ -30,9 +30,9 @@ def parseCsvToTxt(file_name, column_to_be_chosen):
 if __name__ == '__main__':
     pictures_path = (path.abspath(path.join(path.dirname(__file__), "pictures")))
     sorting_list = [
-        # s.BubbleSort(),
-        # s.SelectionSort(),
-        # s.InsertionSort(),
+        s.BubbleSort(),
+        s.SelectionSort(),
+        s.InsertionSort(),
         s.QuickSort(),
         s.MergeSort(),
     ]
