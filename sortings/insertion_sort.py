@@ -20,6 +20,7 @@ class InsertionSort(InversionCountMergeSort):
             if self.current_data_to_be_sorted[i] > self.current_data_to_be_sorted[b]:
                 target = self.current_data_to_be_sorted[b]
                 prev = self.current_data_to_be_sorted[i]
+                # Shift right to make i-th position vacant for insertion
                 for j in range(i, b):
                     current = self.current_data_to_be_sorted[j+1]
                     self.current_data_to_be_sorted[j+1] = prev
