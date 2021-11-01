@@ -27,13 +27,14 @@ def parseCsvToTxt(file_name, column_to_be_chosen):
                     continue
                 write_file.write(f"{row[column_to_be_chosen]}\n")
 
+
 if __name__ == '__main__':
     pictures_path = (path.abspath(path.join(path.dirname(__file__), "pictures")))
     sorting_list = [
-        s.BubbleSort,
-        s.SelectionSort,
-        s.InsertionSort,
-        s.QuickSort,
+        # s.BubbleSort,
+        # s.SelectionSort,
+        # s.InsertionSort,
+        # s.QuickSort,
         s.MergeSort,
     ]
     # sorting_list = [
@@ -60,21 +61,21 @@ if __name__ == '__main__':
     #     plt.save_figure(figure_type, f"{pictures_path}/t-to-ds-{datetime.datetime.today().strftime('%m-%d-%H-%M')}.png", bbox_inches='tight')
 
     # Memory to data size
-    figure_type = "m_to_ds"
-    for index, file_name in enumerate(file_list):
-        memory_results = []
-        for s in sorting_list:
-            sort_instance = s()
-            memory_result = sort_instance.memory_to_size_sort(file_name)
-            # Remove memory used by plt object
-            for i, m in enumerate(memory_result):
-                memory_result[i] -= (asizeof.asizeof(plt) / 10**6)
-            memory_results.append({
-                "result": memory_result,
-                "sorting_name": sort_instance.__class__.__name__
-            })
-        plt.make_subplot(figure_type, file_name, range(5, 101, 5), memory_results, fmt_list)
-        plt.save_figure(figure_type, f"{pictures_path}/memory-to-ds-{datetime.datetime.today().strftime('%m-%d-%H-%M')}.png", bbox_inches='tight')
+    # figure_type = "m_to_ds"
+    # for index, file_name in enumerate(file_list):
+    #     memory_results = []
+    #     for s in sorting_list:
+    #         sort_instance = s()
+    #         memory_result = sort_instance.memory_to_size_sort(file_name)
+    #         # Remove memory used by plt object
+    #         for i, m in enumerate(memory_result):
+    #             memory_result[i] -= (asizeof.asizeof(plt) / 10**6)
+    #         memory_results.append({
+    #             "result": memory_result,
+    #             "sorting_name": sort_instance.__class__.__name__
+    #         })
+    #     plt.make_subplot(figure_type, file_name, range(5, 101, 5), memory_results, fmt_list)
+    #     plt.save_figure(figure_type, f"{pictures_path}/memory-to-ds-{datetime.datetime.today().strftime('%m-%d-%H-%M')}.png", bbox_inches='tight')
 
     # Time to degree of sortness
     # figure_type = "t_to_dos"
@@ -89,3 +90,20 @@ if __name__ == '__main__':
     #         })
     #     plt.make_subplot(figure_type, file_name, range(0, 101, 10), time_results, fmt_list)
     #     plt.save_figure(figure_type, f"{pictures_path}/{figure_type}-{datetime.datetime.today().strftime('%m-%d-%H-%M')}.png", bbox_inches='tight')
+
+    # Memory to data size
+    figure_type = "m_to_dos"
+    for index, file_name in enumerate(file_list):
+        memory_results = []
+        for s in sorting_list:
+            sort_instance = s()
+            memory_result = sort_instance.memory_to_sortness_sort(file_name)
+            # Remove memory used by plt object
+            for i, m in enumerate(memory_result):
+                memory_result[i] -= (asizeof.asizeof(plt) / 10**6)
+            memory_results.append({
+                "result": memory_result,
+                "sorting_name": sort_instance.__class__.__name__
+            })
+        plt.make_subplot(figure_type, file_name, range(0, 101, 10), memory_results, fmt_list)
+        plt.save_figure(figure_type, f"{pictures_path}/t-to-ds-{datetime.datetime.today().strftime('%m-%d-%H-%M')}.png", bbox_inches='tight')

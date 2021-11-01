@@ -8,26 +8,31 @@ class Plot:
             "t_to_ds": "Time to data size",
             "m_to_ds": "Memory to data size",
             "t_to_dos": "Time to degree of sortness",
+            "m_to_dos": "Memory to degree of sortness",
         }
         self.xlabel_map = {
             "t_to_ds": "Data size",
             "m_to_ds": "Data size",
             "t_to_dos": "Degree of sortness",
+            "m_to_dos": "Degree of sortness",
         }
         self.ylabel_map = {
             "t_to_ds": "Time",
             "m_to_ds": "Memory",
             "t_to_dos": "Time",
+            "m_to_dos": "Memory",
         }
         self.ylabel_unit = {
             "t_to_ds": ticker.FormatStrFormatter('%.1fs'),
             "m_to_ds": ticker.FormatStrFormatter('%.1fMB'),
             "t_to_dos": ticker.FormatStrFormatter('%.1fs'),
+            "m_to_dos": ticker.FormatStrFormatter('%.1fMB'),
         }
         self.xlabel_unit = {
             "t_to_ds": ticker.FormatStrFormatter('%d%%'),
             "m_to_ds": ticker.FormatStrFormatter('%d%%'),
             "t_to_dos": ticker.FormatStrFormatter('%d%%'),
+            "m_to_dos": ticker.FormatStrFormatter('%d%%'),
         }
         self.subplot_name_map = {
             "u": "Uniform Distribution",

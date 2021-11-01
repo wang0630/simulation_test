@@ -1,5 +1,7 @@
 import datetime
 import math
+from concurrent.futures import ThreadPoolExecutor
+from memory_monitor import MemoryMonitor
 from .sorting import Sorting
 
 
@@ -41,6 +43,40 @@ class InversionCountMergeSort(Sorting):
             time_result.append(round(sum(times) / self.iteration_count, 4))
             print(f"{self.__class__.__name__} in {file_type_key} with {degree}%, time result: {time_result}")
         return time_result
+
+    def memory_to_sortness_sort(self, file_type_key):
+        memory_result = []
+        self.read_data_to_ram(file_type_key)
+        # Reversely sort list and make the degree 100
+        self.data = sorted(self.data, reverse=True)
+        self.current_inversion_degree = 100
+        reversely_sorted_inversion_count = sum(range(len(self.data)))
+        self.current_inversion_count = reversely_sorted_inversion_count
+        # Get the data size from 5, 10,..., 100
+        for degree in range(100, -1, -10):
+            # List to store the running time of all 5 iterations for a given data size percentage
+            self.create_inversion_list(degree, reversely_sorted_inversion_count)
+            mems = []
+            for iteration in range(self.iteration_count):
+                # Get a copy of data to manipulate
+                # cur_degree_inversion_list contains the whole list which is in current degree
+                cur_degree_inversion_list = self.data[:]
+                with ThreadPoolExecutor() as executor:
+                    memory_monitor = MemoryMonitor()
+                    memory_monitor_thread = executor.submit(memory_monitor.memory_usage)
+                    # Partition cur_degree_inversion_list to several list to avoid max recursive
+                    sort_thread = executor.submit(self.partition_sort, cur_degree_inversion_list)
+                    # Block the main thread execution
+                    result = sort_thread.result()
+                    memory_monitor.should_continue_measuring = False
+                    mems.append(memory_monitor_thread.result())
+            # Compute the average memory usage of all 5 iterations of a given data size percentage
+            unit = 10 ** 6
+            if self.os_name == 'Linux':
+                unit = 10 ** 3
+            memory_result.append(round((sum(mems) / self.iteration_count) / unit, 3))
+            print(f"{self.__class__.__name__} in {file_type_key} with {degree}%, memory usage: {memory_result} MB")
+        return memory_result
 
     def partition_sort(self, cur_degree_inversion_list):
         self.reset()
