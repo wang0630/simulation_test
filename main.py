@@ -45,10 +45,11 @@ if __name__ == '__main__':
     for index, file_name in enumerate(file_list):
         time_results = []
         for s in sorting_list:
-            time_result = s.time_to_size_sort(file_name)
+            sort_instance = s()
+            time_result = sort_instance.time_to_size_sort(file_name)
             time_results.append({
                 "result": time_result,
-                "sorting_name": s.__class__.__name__
+                "sorting_name": sort_instance.__class__.__name__
             })
         plt.make_subplot(figure_type, file_name, range(5, 101, 5), time_results, fmt_list)
         plt.save_figure(figure_type, f"{pictures_path}/t-to-ds-{datetime.datetime.today().strftime('%m-%d-%H-%M')}.png", bbox_inches='tight')
@@ -75,11 +76,12 @@ if __name__ == '__main__':
     for index, file_name in enumerate(file_list):
         time_results = []
         for s in sorting_list:
-            time_result = s.time_to_sortness_sort(file_name)
+            sort_instance = s()
+            time_result = sort_instance.time_to_sortness_sort(file_name)
             time_result.reverse()
             time_results.append({
                 "result": time_result,
-                "sorting_name": s.__class__.__name__
+                "sorting_name": sort_instance.__class__.__name__
             })
         plt.make_subplot(figure_type, file_name, range(0, 101, 10), time_results, fmt_list)
         plt.save_figure(figure_type, f"{pictures_path}/{figure_type}-{datetime.datetime.today().strftime('%m-%d-%H-%M')}.png", bbox_inches='tight')
